@@ -1,4 +1,4 @@
-//  if else control in java
+//  method overload in java
 
 public class MethodChallenge {
     public static void main(String[] args) {

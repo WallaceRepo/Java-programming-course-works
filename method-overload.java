@@ -1,5 +1,43 @@
 //  method overload in java
+public class FirstClass {
+    private static int bonus;
 
+    public static void main(String[] args) {
+        boolean gameOver = true;
+        int score = 800;
+        int levelCompleted = 5;
+        int bonus = 100;
+
+        int finalScore = score;
+
+        calc (gameOver, score, levelCompleted, bonus);
+
+        calc(true, 800, levelCompleted, bonus);
+
+        calc(true, 10000, 8, 200);
+
+        int highScore = calculate(gameOver, score, levelCompleted, bonus);
+    }
+
+    public static void calc(boolean gameOver, int score, int levelCompleted, int bonus) {
+         int finalScore = score;
+         if(gameOver) {
+            finalScore += (levelCompleted * bonus);
+            finalScore += 1000;
+            System.out.println("Your final score was " +finalScore);
+        }
+    }
+    public static int calculate(boolean gameOver, int score, int levelCompleted, int bonus) {
+        int finalScore = score;
+           if(gameOver) {
+            finalScore += (levelCompleted * bonus);
+            finalScore += 1000;
+            System.out.println("Your final score was " +finalScore);
+          }
+        return finalScore;
+    }
+}
+/////////////
 public class MethodChallenge {
     public static void main(String[] args) {
 

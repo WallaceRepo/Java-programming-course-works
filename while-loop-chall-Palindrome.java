@@ -4,7 +4,11 @@ public class whileLoopChallenge {
         System.out.println(isPalindrome(101));
     }
      public static boolean isPalindrome(int number) {
-          int original = number; // number gets changed after while loop!
+         if (number < 0)
+         {
+             number *= -1;
+         }
+          int original = number;
           int reverse = 0;
           while (number > 0) {
               int lastDigit = number % 10;

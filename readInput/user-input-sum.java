@@ -13,11 +13,14 @@ public class ParsingValuesReadInput {
      public static int getInputFromScanner(){
           Scanner scanner = new Scanner(System.in);
           int sum = 0;
-          int count = 1;
+          // int count = 1;
+         double count = 1;
           do {
               System.out.println("enter number # " + count + " ? ");
+              
               try {
-                  int number = Integer.parseInt(scanner.nextLine());
+                  // int number = Integer.parseInt(scanner.nextLine());
+                  double number = Double.parseDouble(scanner.nextLine());
                   count++;
                   sum += number;
               } catch(NumberFormatException badUserData){

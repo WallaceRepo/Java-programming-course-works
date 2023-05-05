@@ -8,31 +8,53 @@ import java.util.Scanner;
 
 public class MinMaxChallenge {
     public static void main(String[] args) {
+         inputThenPrintSumAndAverage();
+    }
+    public static void inputThenPrintSumAndAverage(){
         Scanner scanner = new Scanner(System.in);
-
-        double max = 0;
-        double min = 0;
-        int loopCount = 0;
-        while( true) {
-            System.out.println("Enter a number, or any character to exit:");
-            String nextEntry = scanner.nextLine();
+        int sum = 0;
+        long avg = 0;
+        int count = 0;
+        while(true) {
+            System.out.println("Enter number ");
+            String nextLine = scanner.nextLine();
             try {
-                 double validNum = Double.parseDouble(nextEntry);
-                 if(loopCount == 0 || validNum < min) {
-                     min = validNum;
-                 }
-                 if(loopCount == 0 || validNum > max){
-                     max = validNum;
-                 }
-                 loopCount++;
-            } catch (NumberFormatException nfe) {
+                 sum += Integer.parseInt(nextLine);
+                 count++;
+                 avg = Math.round(sum / count);
+            } catch(NumberFormatException er) {
                 break;
             }
         }
-        if(loopCount > 0) {
-            System.out.println("min = " + min + ", max = " + max);
-        } else {
-            System.out.println("No valid data entered");
-        }
+       System.out.println("SUM = " + sum + " " + "AVG = " + avg );
     }
+} 
+
+//// Without "Enter number" prompt
+import java.util.Scanner;
+ 
+public class InputCalculator {
+    // Write your code here
+public static void inputThenPrintSumAndAverage() {
+    Scanner scanner = new Scanner(System.in);
+ 
+    int sum = 0;
+    long avg = 0;
+    int counter = 0;
+ 
+    while (true) {
+        if (scanner.hasNextInt()) {
+            sum += scanner.nextInt();
+            avg = Math.round((double) sum / ++counter);
+        } else {
+            break;
+        }
+        scanner.nextLine();
+    }
+ 
+    scanner.close();
+ 
+    System.out.println("SUM = " + sum + " AVG = " + avg);
 }
+}
+

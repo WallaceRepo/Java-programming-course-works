@@ -26,13 +26,14 @@ public class Car {
     public void startEngine(){
       System.out.println("Car -> startEngine");
     }
-    public void drive(){
-        System.out.println("Car -> driving, type is " + getClass().getSimpleName());
-        runEngine();
-    }
     protected void runEngine(){
         System.out.println("Car -> runEngine");
     }
+    public void drive(){
+        System.out.println("Car -> driving, type is " + getClass().getSimpleName()); // prints runtime instance type
+        runEngine();          // getClass() called without this and gets runtime instance's class.
+    }
+ 
 }
 class GasPoweredCar extends Car {
     private double avgKmPerLitre;

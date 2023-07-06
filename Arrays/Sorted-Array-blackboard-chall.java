@@ -27,9 +27,10 @@ public class Main {
                       break;
                   } catch (NumberFormatException e){
                       System.out.println("Invalid input. Please enter a valid integer");
-                      System.out.print("Element " + (i + 1) + ": ");
-                  }
-              }
+                     // System.out.print("Element " + (i + 1) + ": ");
+                     }
+                  System.out.print("Element " + (i + 1) + ": ");
+               }
             }
            System.out.println("Array entered by the user:");
          for ( int num : arr) {

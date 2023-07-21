@@ -124,4 +124,18 @@ public class Song {
         return title + ":" + duration;
     }
 }
+/*
+[You can't do it right:6.23, Holy man:4.3, Soldier of fortune:3.13, Lets go:3.45, I put the finger on you:3.25]
+[Album@16b98e56, Album@7ef20235]
+Songs of the album 'For those about to rock' by AC/DC:
+For those about to rock - 5.44
+I put the finger on you - 3.25
+Lets go - 3.45
+Inject the venom - 3.33
+Snowballed - 4.51
+Evil walks - 3.45
+C.O.D. - 5.25
+Breaking the rules - 5.32
+Night of the long knives - 5.12
 
+    */

@@ -24,6 +24,21 @@ public class AutoboxingUnboxing {
         bank.addTransaction("Jane A", -10.25);
         bank.addTransaction("jane A", -75.32);
         bank.printStatement("Jane a");
+        /*
+        Customer[name=BOB S, transactions=[1000.0]]
+Customer (Jane A) wasn't found 
+New Customer added: Customer[name=JANE A, transactions=[500.0]]
+Bank{name='Chase', customers=[Customer[name=JANE A, transactions=[500.0]]]}
+------------------------------
+Customer Name: JANE A
+Transaction:
+$    500.00 (credit)
+$    -10.25 (debit)
+$    -75.32 (debit)     */
+        bank.addTransaction("Bob S", 100);
+        bank.printStatement("Bob S");
+        // Customer (Bob S) wasn't found 
+        //  Customer (Bob S) wasn't found 
 
     }
 

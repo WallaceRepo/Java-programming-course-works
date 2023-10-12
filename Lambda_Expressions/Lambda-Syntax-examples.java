@@ -9,9 +9,7 @@ public interface Operation <T> {
        //also type T, so value 1 and value 2. This means this method takes two
        //arguments of the same type, and returns a value, also the same type as the values.
        //This interface is a functional interface. It has one single abstract method.
-   T operate ( T value1, T value2 ) {
-
-   }
+   T operate ( T value1, T value2 ); // interface's abstract method cannot have a body {}
 
 }
 ///////////////Main 
@@ -77,3 +75,23 @@ public record Main() {
     }
 
 }
+
+/*
+alpha
+bravo
+charlie
+delta
+--------------
+alpha
+bravo
+charlie
+delta
+-------------
+nato alpha means a
+nato bravo means b
+nato charlie means c
+nato delta means d
+Result of operation: 7
+Result of operation: 4.0
+Result of operation: RALPH KRAMEN
+Result of operation: 7      */

@@ -1,4 +1,21 @@
 package Lambda;
+   /// Functional Interface
+//generic interface, meaning I'll include a type parameter.
+//For this type, I won't include any bounds, so this interface can be used with any type.
+@FunctionalInterface
+public interface Operation <T> {
+
+    // I'll add a single abstract method, called operate that returns T, and takes two values,
+       //also type T, so value 1 and value 2. This means this method takes two
+       //arguments of the same type, and returns a value, also the same type as the values.
+       //This interface is a functional interface. It has one single abstract method.
+   T operate ( T value1, T value2 ) {
+
+   }
+
+}
+///////////////Main 
+package Lambda;
 
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.ArrayList;

@@ -66,6 +66,9 @@ import java.util.concurrent.TimeUnit;
 
 public class CachedData {
       private volatile boolean flag = false;
+    // volatile keyword is used as modifier for class variables. Tells its value
+    // may be changed by multiple threads. This ensures that var is always read from or written to the main memory
+    // not from any thread's cashes. Never is it on a single thread or var used for large data. Use it to track counter, or flag to communicate between threads
       public void toggleFlag() {
           flag = !flag;
       }

@@ -100,3 +100,68 @@ public class Main {
 //        12500 : 25000
 //        RecursiveTask sum is: 4986459015
 //        java.util.concurrent.ForkJoinPool
+package ParallelProcess;
+
+import java.util.Random;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
+
+class RecursiveSumTask extends RecursiveTask<Long> {
+    private final long[] numbers;
+    private final int start;
+    private final int end;
+    private final int division;
+
+    public RecursiveSumTask(long[] numbers, int start, int end, int division) {
+        this.numbers = numbers;
+        this.start = start;
+        this.end = end;
+        this.division = division;
+    }
+
+    @Override
+    protected Long compute() {
+        if ((end - start) <= (numbers.length / division)) {
+            System.out.println("Processing range: " + start + " : " + end);
+            long sum = 0;
+            for (int i = start; i < end; i++) {
+                sum += numbers[i];
+            }
+            return sum;
+        } else {
+            int mid = (start + end) / 2;
+            RecursiveSumTask leftTask = new RecursiveSumTask(numbers, start, mid, division);
+            RecursiveSumTask rightTask = new RecursiveSumTask(numbers, mid, end, division);
+            leftTask.fork(); // Fork left task
+            return rightTask.compute() + leftTask.join(); // Compute right task and then join left task
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        int numbersLength = 100_000;
+        long[] numbers = new Random().longs(numbersLength, 1, numbersLength).toArray();
+
+        // Sequential sum for validation
+        long sequentialSum = Arrays.stream(numbers).sum();
+        System.out.println("Sequential sum = " + sequentialSum);
+
+        // Using ForkJoinPool
+        ForkJoinPool threadPool = ForkJoinPool.commonPool();
+
+        // ForkJoin task to split the array
+        RecursiveSumTask task = new RecursiveSumTask(numbers, 0, numbersLength, 8);
+        long forkJoinSum = threadPool.invoke(task);
+
+        System.out.println("Parallel sum (ForkJoin) = " + forkJoinSum);
+
+        // ForkJoinPool stats
+        System.out.println("Parallelism = " + threadPool.getParallelism());
+        System.out.println("Pool size = " + threadPool.getPoolSize());
+        System.out.println("Steal count = " + threadPool.getStealCount());
+
+        // Shutdown the pool if you're not using common pool
+        // threadPool.shutdown();
+    }
+}

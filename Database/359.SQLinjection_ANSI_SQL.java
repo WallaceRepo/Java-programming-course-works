@@ -186,3 +186,76 @@ Exception in thread "main" java.lang.NumberFormatException: For input string: "7
 Process finished with exit code 1
 
 */
+///////////// ANSI usage example and writing db agnostic code
+public class Main {
+    public static void main(String[] args) {
+        Properties props = new Properties();
+        try {
+            props.load(Files.newInputStream(Path.of("music.properties"), StandardOpenOption.READ));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+        var dataSource = new MysqlDataSource();
+        dataSource.setServerName(props.getProperty("serverName"));
+        dataSource.setPort(Integer.parseInt(props.getProperty("port")));
+        dataSource.setDatabaseName(props.getProperty("databaseName"));
+
+        // adding limit on dataSource
+        try {
+            dataSource.setMaxRows(10);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        // String query = "SELECT * FROM music.artists limit 10";
+        // Using ANSI in above
+
+        String query = """
+                WITH RankedRows AS (
+                    SELECT *,
+                           ROW_NUMBER() OVER (ORDER BY artist_id) AS row_num
+                    FROM music.artists
+                )
+                SELECT * FROM RankedRows WHERE row_num <= 10;
+                """;
+
+        try (var connection = dataSource.getConnection(props.getProperty("user"), System.getenv("MYSQL_PASS")); Statement statement= connection.createStatement();){
+           // System.out.println("Success!");
+            ResultSet resultSet = statement.executeQuery(query);
+            var meta = resultSet.getMetaData();
+
+             // Using generic to print data coming from var meta. Let's print only column names
+            for( int i = 1; i <= meta.getColumnCount(); i++ ) {
+                System.out.printf("%-15s", meta.getColumnName(i).toUpperCase());
+            }
+            System.out.println(); // After column names are printed, print new line here
+            while(resultSet.next()){
+                for ( int i = 1; i <= meta.getColumnCount(); i++ ) {
+                    System.out.printf("%-15s", resultSet.getString(i));
+                }
+                System.out.println();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
+}
+/*
+ARTIST_ID      ARTIST_NAME    ROW_NUM        
+1              Mahogany Rush  1              
+2              Elf            2              
+3              Mehitabel      3              
+4              Big Brother & The Holding Company4              
+5              Roy Harper     5              
+6              Pat Benatar    6              
+7              Rory Gallagher 7              
+8              Iron Maiden    8              
+9              Blaster Bates  9              
+10             Procol Harum   10             
+
+Process finished with exit code 0 */

@@ -735,4 +735,17 @@ ALBUM_ID       ALBUM_NAME     ARTIST_ID
 
 Process finished with exit code 0
 */
+// after fixing intentional syntax error
+/*
+ARTIST_ID      ARTIST_NAME    
+206            Bob Dylan      
+AUTOMCOMMIT = true
+Deleted 7 rows from music.songs
+Deleted 1 rows from music.albums
+Deleted 1 rows from music.artists
+ALBUM_NAME     ARTIST_NAME    TRACK_NUMBER   SONG_TITLE     
+ALBUM_ID       ALBUM_NAME     ARTIST_ID      
 
+Process finished with exit code 0
+
+*/

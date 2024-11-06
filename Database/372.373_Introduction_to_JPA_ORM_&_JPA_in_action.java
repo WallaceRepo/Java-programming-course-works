@@ -185,3 +185,32 @@ INFO: HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platf
 Hibernate: select a1_0.artist_id,a1_0.artist_name from artists a1_0 where a1_0.artist_id=?
 Artist{artistId=203, artistName='Muddy Water'}
 */
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import music.Artist;
+
+public class Main {
+    public static void main ( String[] args ) {
+
+         try ( var sessionFactory = Persistence.createEntityManagerFactory(
+                  "dev.lpa.music" );
+               EntityManager entityManager = sessionFactory.createEntityManager();
+         ) {
+             var transaction = entityManager.getTransaction();
+             transaction.begin();
+             Artist artist = new Artist(202, "Muddy Water");
+//             Artist artist = entityManager.find(Artist.class, 203);
+//             System.out.println(artist);
+//             artist.setArtistName("Muddy Waters");
+          //   entityManager.remove(artist);
+           //  entityManager.persist( new Artist("Muddy Water"));
+             entityManager.merge(artist);
+             transaction.commit();
+
+         } catch (Exception e ) {
+             e.printStackTrace();
+         }
+    }
+}
